@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+media/
+samples/
+staticfiles/
+.pytest_cache/
+.pytest_out.txt
+.ruff_cache/
+*.log
+# duplicate of docs/ copy
+/SDM Complaint Tracker*.pdf

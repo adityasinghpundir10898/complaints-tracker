@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: sdm
+      POSTGRES_PASSWORD: sdm
+      POSTGRES_DB: sdm
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # Optional: `docker compose --profile web up`. Has pdftotext/tesseract for intake.
+  web:
+    profiles: ["web"]
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.dev
+      SECRET_KEY: dev-only-not-a-secret-4f9a1c7e2b
+      DEBUG: "True"
+      DATABASE_URL: postgres://sdm:sdm@db:5432/sdm
+      MEDIA_ROOT: /app/media
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+volumes:
+  pgdata:

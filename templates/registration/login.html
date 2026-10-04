@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Log in - SDM Complaint Tracker{% endblock %}
+{% block content %}
+<article class="login">
+  <h2>Log in</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% if form.errors %}<p class="error" role="alert">Wrong username or password.</p>{% endif %}
+    <label>Username {{ form.username }}</label>
+    <label>Password {{ form.password }}</label>
+    <input type="hidden" name="next" value="{{ next }}">
+    <button type="submit">Log in</button>
+  </form>
+</article>
+{% endblock %}

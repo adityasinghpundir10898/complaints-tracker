@@ -1,0 +1,192 @@
+{
+  "documents": [
+    {
+      "name": "hindi_petition_scan",
+      "kind": "pdf",
+      "pages": [
+        {
+          "mode": "image", "font": "Nirmala UI", "size": 31, "top": 150, "left": 110, "lineHeight": 74, "rotate": 0.6,
+          "lines": [
+            "सेवा में",
+            "",
+            {"t": "माननीय उपमंडल अधिकारी (नागरिक) महोदय,", "x": 230},
+            "",
+            {"t": "डबवाली।", "x": 230},
+            "",
+            "विषय :-    गांव भट्टू कलां की फिरनी पर गंदे पानी के भराव को रोकने",
+            {"t": "बाबत।", "x": 230},
+            "",
+            "श्रीमान् जी,",
+            "",
+            {"t": "सविनय निवेदन है कि प्रार्थीगण गांव भट्टू कलां, तहसील डबवाली जिला सिरसा", "x": 190},
+            "के रहने वाले है। गांव की फिरनी पर पिछले तीन माह से गंदा पानी खड़ा रहता है",
+            "और पंचायत द्वारा कई बार कहने पर भी नाली की सफाई नहीं करवाई गई है। इस बाबत",
+            "प्रार्थीगण ने ब्लॉक कार्यालय में भी शिकायत दर्ज करवाई है लेकिन किसी भी अधिकारी",
+            "के द्वारा कोई कार्यवाही अमल में नही लाई गई है।"
+          ]
+        },
+        {
+          "mode": "image", "font": "Nirmala UI", "size": 31, "top": 260, "left": 110, "lineHeight": 74, "rotate": -0.4,
+          "lines": [
+            {"t": "यह कि गंदे पानी के कारण मच्छर पैदा हो रहे है और बीमारी फैलने का डर", "x": 190},
+            "बना हुआ है। जिस कारण से आप महोदय से प्रार्थना है कि नाली की सफाई करवाई",
+            "जावे और प्रार्थीगण को परेशानी से निजात दिलवाई जावे।",
+            "",
+            {"t": "आपकी अति कृपा होगी।", "x": 230},
+            "",
+            "भट्टू कलां / 02/10/2026                                      प्रार्थीगण",
+            "",
+            {"t": "सुरेश कुमार पुत्र श्री रामपाल व मनोज कुमार", "x": 540},
+            {"t": "पुत्र श्री रामपाल निवासीगण गांव भट्टू", "x": 540},
+            {"t": "कलां तहसील डबवाली जिला सिरसा।", "x": 540},
+            {"t": "मो. 98765 43210, 91234 56789", "x": 540}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hindi_pension_form_scan",
+      "kind": "pdf",
+      "pages": [
+        {
+          "mode": "image", "font": "Nirmala UI", "size": 32, "top": 160, "left": 120, "lineHeight": 80, "rotate": 0.3,
+          "lines": [
+            {"t": "उपमंडल अधिकारी (नागरिक) कार्यालय, डबवाली", "x": 150},
+            {"t": "शिकायत प्रपत्र", "x": 420},
+            "",
+            "शिकायतकर्ता का नाम :  सरोज देवी",
+            "मोबाइल नम्बर :  98123 45670",
+            "गांव :  तोहाना",
+            "विषय :  वृद्धावस्था पेंशन पिछले छह माह से नहीं मिलने बाबत।",
+            "",
+            "विवरण :  मेरी पेंशन पिछले छह माह से बंद है। कई बार विभाग के",
+            "चक्कर लगाने के बाद भी कोई सुनवाई नहीं हुई है। मेरी उम्र ७२ वर्ष है",
+            "और घर में कमाने वाला कोई नहीं है।"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "english_letter_typed",
+      "kind": "pdf",
+      "pages": [
+        {
+          "mode": "text",
+          "lines": [
+            "To,",
+            "The Sub-Divisional Magistrate,",
+            "Dabwali, District Sirsa.",
+            "",
+            "Subject: Request for repair of the link road between Ratia and Bhirdana villages.",
+            "",
+            "Respected Sir,",
+            "",
+            "I wish to bring to your kind notice that the link road connecting our village with",
+            "the main road has been in a damaged condition for the last six months. Several",
+            "accidents have already happened and school children find it difficult to reach",
+            "school during the rains. A complaint was also given to the Block office but no",
+            "action has been taken so far.",
+            "",
+            "I therefore request you to kindly get the road repaired at the earliest.",
+            "",
+            "Yours faithfully,",
+            "",
+            "Name: Rajinder Singh",
+            "Mobile: 98765 12345",
+            "Village: Ratia",
+            "Date: 02/10/2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cm_window_printout_scan",
+      "kind": "pdf",
+      "pages": [
+        {
+          "mode": "image", "font": "Segoe UI", "size": 30, "top": 150, "left": 120, "lineHeight": 70, "rotate": 0.5,
+          "lines": [
+            "CM Window - Grievance Details   (invented sample layout)",
+            "",
+            "Grievance ID :  CMW/2026/123456",
+            "Registered On :  01/10/2026",
+            "Complainant Name :  Kamla Rani",
+            "Mobile :  98111 22334",
+            "District :  Sirsa",
+            "Village :  Jakhal",
+            "Department :  Revenue",
+            "Subject :  Delay in mutation of agricultural land.",
+            "",
+            "Description :  The mutation of my father's land has been pending for eight",
+            "months. I have visited the Tehsil office many times but the file is not moving."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mixed_text_and_screenshot",
+      "kind": "pdf",
+      "pages": [
+        {
+          "mode": "text",
+          "lines": [
+            "To,",
+            "The SDM, Dabwali.",
+            "",
+            "Subject: Blocked drain near the government school, Bhuna.",
+            "",
+            "Respected Sir,",
+            "",
+            "The drain near the government school has been blocked for a month. The Panchayat",
+            "has promised to clear it but nothing has happened. A screenshot of the chat with",
+            "the Panchayat secretary is attached on the next page.",
+            "",
+            "Name: Baljeet Singh",
+            "Mobile: 98555 66778",
+            "Village: Bhuna"
+          ]
+        },
+        {
+          "mode": "image", "font": "Segoe UI", "size": 30, "top": 120, "left": 90, "lineHeight": 64, "rotate": 0, "background": "#ECE5DD",
+          "lines": [
+            "WhatsApp chat - Panchayat Secretary",
+            "",
+            "Baljeet:  The drain near the school is blocked again",
+            "Secretary:  We will clear it next week",
+            "Baljeet:  You said that last month also",
+            "Secretary:  Funds are not released yet",
+            "Baljeet:  Water is entering the school yard"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "photo_hindi_letter",
+      "kind": "jpg",
+      "pages": [
+        {
+          "mode": "image", "font": "Nirmala UI", "size": 32, "top": 190, "left": 130, "lineHeight": 78, "rotate": 1.6, "background": "#F1EFE6",
+          "lines": [
+            "सेवा में",
+            {"t": "माननीय उपमंडल अधिकारी (नागरिक) महोदय, डबवाली।", "x": 200},
+            "",
+            "विषय :-    राशन कार्ड में नाम जुड़वाने बाबत।",
+            "",
+            "श्रीमान् जी,",
+            {"t": "सविनय निवेदन है कि प्रार्थी गांव जाखल का रहने वाला है। प्रार्थी", "x": 190},
+            "के परिवार का राशन कार्ड बन चुका है परन्तु उसमें प्रार्थी की पत्नी का",
+            "नाम दर्ज नहीं है। कई बार कार्यालय के चक्कर लगाने के बाद भी नाम नहीं",
+            "जोड़ा गया है।",
+            "",
+            {"t": "आपकी अति कृपा होगी।", "x": 230},
+            "",
+            "                                                                 प्रार्थी",
+            {"t": "हरपाल सिंह पुत्र श्री गुरमेल सिंह", "x": 560},
+            {"t": "निवासी गांव जाखल तहसील डबवाली जिला सिरसा।", "x": 560},
+            {"t": "मो. 98200 11223", "x": 560}
+          ]
+        }
+      ]
+    }
+  ]
+}

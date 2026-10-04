@@ -1,0 +1,88 @@
+{% load complaints_tags %}
+<div class="detail">
+  <button type="button" class="back outline secondary"
+          onclick="document.body.classList.remove('detail-open')">&larr; Back to list</button>
+
+  <header>
+    <h3>{{ complaint.ref_no }}</h3>
+    <p class="subject">{{ complaint.subject }}</p>
+    <dl class="facts">
+      <dt>Complainant</dt><dd>{{ complaint.complainant.name }}</dd>
+      <dt>Phone</dt><dd>{{ complaint.complainant.phone|default:"-" }}</dd>
+      <dt>Village</dt><dd>{{ complaint.village|default:"-" }}</dd>
+      <dt>Platform</dt><dd>{{ complaint.get_source_platform_display }}</dd>
+      <dt>External ref</dt><dd>{{ complaint.external_ref|default:"-" }}</dd>
+      <dt>Category</dt><dd>{{ complaint.category|default:"-" }}</dd>
+      <dt>Received</dt><dd>{{ complaint.received_on|date:"j M Y" }}</dd>
+      {% if complaint.related_to %}
+      <dt>Related to</dt>
+      <dd><a href="{% url 'complaints:detail' complaint.related_to_id %}">{{ complaint.related_to.ref_no }}</a></dd>
+      {% endif %}
+    </dl>
+  </header>
+
+  <section class="status status-{{ complaint.bucket }}">
+    <div class="status-head">
+      <strong>{{ complaint.get_current_state_display }}</strong>
+      {% if complaint.is_open %}
+      <span>Pending at {{ complaint.location }} for {{ complaint.days_pending }} day{{ complaint.days_pending|pluralize }}</span>
+      {% endif %}
+      <span>Total age {{ total_age }} day{{ total_age|pluralize }}</span>
+    </div>
+    {% if referral_overdue %}
+    <p class="error">Report overdue: due {{ open_referral.due_on|date:"j M Y" }}.</p>
+    {% elif open_referral %}
+    <p>Report due {{ open_referral.due_on|date:"j M Y" }}.</p>
+    {% endif %}
+    <p class="summary">{{ summary }}</p>
+  </section>
+
+  {% if actions %}
+  <section class="actions" aria-label="Actions">
+    {% for name, label in actions %}
+    <button type="button" class="outline"
+            hx-get="{% url 'complaints:action' complaint.pk name %}" hx-target="#action-area">{{ label }}</button>
+    {% endfor %}
+  </section>
+  {% endif %}
+  <section id="action-area"></section>
+
+  {% if complaint.description %}
+  <section>
+    <h4>Description</h4>
+    <p class="description">{{ complaint.description|linebreaksbr }}</p>
+  </section>
+  {% endif %}
+
+  <section>
+    <h4>Documents</h4>
+    {% for kind, docs in documents %}
+    <h5>{{ kind }}</h5>
+    <ul class="docs">
+      {% for d in docs %}
+      <li>
+        <a href="{% url 'complaints:document' d.pk %}" target="_blank" rel="noopener">{{ d.original_filename }}</a>
+        <a href="{% url 'complaints:document' d.pk %}?download=1" class="secondary">download</a>
+        <small>{{ d.uploaded_at|local_dt }}</small>
+        {% if d.supersedes %}<small>(replaces {{ d.supersedes.original_filename }})</small>{% endif %}
+        {% if d.superseded_by.all %}<small class="muted">(superseded)</small>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% empty %}
+    <p class="empty">No documents yet.</p>
+    {% endfor %}
+  </section>
+
+  <section>
+    <h4>History</h4>
+    <ol class="timeline">
+      {% for e in events %}
+      <li>
+        <div><strong>{{ e|event_label }}</strong> <small>{{ e.occurred_at|local_dt }} by {{ e.actor.get_full_name|default:e.actor.username }}</small></div>
+        {% with detail=e|event_detail %}{% if detail %}<div class="muted">{{ detail }}</div>{% endif %}{% endwith %}
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+</div>

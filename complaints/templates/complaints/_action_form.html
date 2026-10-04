@@ -1,0 +1,13 @@
+<form method="post" action="{% url 'complaints:action' complaint.pk action %}"
+      hx-post="{% url 'complaints:action' complaint.pk action %}" hx-target="#action-area" hx-swap="innerHTML"
+      {% if multipart %}enctype="multipart/form-data" hx-encoding="multipart/form-data"{% endif %}
+      class="action-form">
+  {% csrf_token %}
+  <h4>{{ label }}</h4>
+  {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+  {{ form.as_div }}
+  <div class="form-buttons">
+    <button type="submit">Save</button>
+    <button type="button" class="secondary outline" onclick="document.getElementById('action-area').innerHTML=''">Cancel</button>
+  </div>
+</form>

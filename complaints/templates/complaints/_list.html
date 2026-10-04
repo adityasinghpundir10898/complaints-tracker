@@ -1,0 +1,45 @@
+<div class="kpi">
+  <div><strong>{{ kpi.total }}</strong><span>Total</span></div>
+  <div><strong>{{ kpi.pending }}</strong><span>Pending</span></div>
+  <div class="kpi-safe"><strong>{{ kpi.safe }}</strong><span>Safe</span></div>
+  <div class="kpi-warning"><strong>{{ kpi.warning }}</strong><span>Warning</span></div>
+  <div class="kpi-overdue"><strong>{{ kpi.overdue }}</strong><span>Overdue</span></div>
+  <div class="kpi-critical"><strong>{{ kpi.critical }}</strong><span>Critical</span></div>
+  <div><strong>{{ kpi.closed }}</strong><span>Closed</span></div>
+</div>
+
+{% for c in page %}
+<a class="card bucket-{{ c.bucket }}" href="{% url 'complaints:detail' c.pk %}"
+   hx-get="{% url 'complaints:detail' c.pk %}" hx-target="#detail-pane" hx-push-url="false">
+  <div class="card-head">
+    <strong>{{ c.ref_no }}</strong>
+    <span class="badge">{{ c.get_current_state_display }}</span>
+  </div>
+  <div class="card-subject">{{ c.subject }}</div>
+  <div class="card-meta">
+    {{ c.village|default:"No village" }} &middot; {{ c.get_source_platform_display }} &middot; {{ c.complainant.name }}
+  </div>
+  <div class="card-pending">
+    {% if c.is_open %}Pending at {{ c.location }} for {{ c.days_pending }} day{{ c.days_pending|pluralize }}
+    {% else %}Closed {{ c.closed_on|date:"j M Y" }}{% endif %}
+  </div>
+</a>
+{% empty %}
+<p class="empty">No complaints match these filters.</p>
+{% endfor %}
+
+{% if page.has_other_pages %}
+<nav class="pager" aria-label="Pages">
+  {% if page.has_previous %}
+  <a href="?{{ querystring }}&page={{ page.previous_page_number }}"
+     hx-get="{% url 'complaints:list' %}?{{ querystring }}&page={{ page.previous_page_number }}"
+     hx-target="#list-pane" hx-push-url="true">&laquo; Previous</a>
+  {% endif %}
+  <span>Page {{ page.number }} of {{ page.paginator.num_pages }}</span>
+  {% if page.has_next %}
+  <a href="?{{ querystring }}&page={{ page.next_page_number }}"
+     hx-get="{% url 'complaints:list' %}?{{ querystring }}&page={{ page.next_page_number }}"
+     hx-target="#list-pane" hx-push-url="true">Next &raquo;</a>
+  {% endif %}
+</nav>
+{% endif %}

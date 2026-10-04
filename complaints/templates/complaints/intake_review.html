@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}New complaint - SDM Complaint Tracker{% endblock %}
+{% block content %}
+<article>
+  <h2>New complaint</h2>
+  <p>Step 2 of 2: check the details for <strong>{{ filename }}</strong> and save.</p>
+  {% if text_status == "none" %}
+  <p class="muted">Text could not be read from this file here, so please type the details.</p>
+  {% elif text_status == "failed" %}
+  <p class="error">Reading the file failed. Please type the details.</p>
+  {% endif %}
+  {% if village_hint %}
+  <p class="muted">The letter mentions the village <strong>{{ village_hint }}</strong>, which is not in the village list. Pick the right village, or ask an admin to add it.</p>
+  {% endif %}
+
+  {% if duplicates %}
+  <section class="warning-box" role="alert">
+    <h4>Possibly related complaints</h4>
+    <ul>
+      {% for c, reason in duplicates %}
+      <li>
+        <a href="{% url 'complaints:detail' c.pk %}" target="_blank" rel="noopener">{{ c.ref_no }}</a>
+        - {{ c.subject }} ({{ reason }})
+        <button type="submit" form="intake-form" name="related_to" value="{{ c.pk }}" class="outline">Save as related to {{ c.ref_no }}</button>
+      </li>
+      {% endfor %}
+    </ul>
+    <p>If none of these is the same issue, use "Save as new complaint".</p>
+  </section>
+  {% endif %}
+
+  <form id="intake-form" method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form.visible_fields %}
+    <label>{{ field.label }} {{ field }}</label>
+    {% if field.errors %}<small class="error">{{ field.errors|join:" " }}</small>{% endif %}
+    {% endfor %}
+    {# related_to is only ever set by the "Save as related" buttons above #}
+    {{ form.confirm_duplicates }}
+    <button type="submit">{% if duplicates %}Save as new complaint{% else %}Save complaint{% endif %}</button>
+    <a href="{% url 'complaints:intake_upload' %}" role="button" class="secondary outline">Start over</a>
+  </form>
+
+  {% if document_preview %}
+  <details>
+    <summary>Text read from the file</summary>
+    <pre class="preview">{{ document_preview }}</pre>
+  </details>
+  {% endif %}
+</article>
+{% endblock %}

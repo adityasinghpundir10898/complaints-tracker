@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block main_class %}workspace{% endblock %}
+{% block content %}
+<form id="filters" class="filters" method="get" action="{% url 'complaints:list' %}"
+      hx-get="{% url 'complaints:list' %}" hx-target="#list-pane" hx-push-url="true"
+      hx-trigger="change, keyup changed delay:400ms from:#id_q, submit">
+  <div class="filter-row">
+    {{ form.q }}
+    {{ form.department }}
+    {{ form.village }}
+    {{ form.platform }}
+    {{ form.status }}
+    {{ form.category }}
+    {{ form.tag }}
+    <label class="date">From {{ form.date_from }}</label>
+    <label class="date">To {{ form.date_to }}</label>
+  </div>
+  <div class="chips" role="radiogroup" aria-label="Ageing">
+    {% for value, label in buckets %}
+    <label class="chip chip-{{ value|default:'all' }}">
+      <input type="radio" name="bucket" value="{{ value }}" {% if value == active_bucket %}checked{% endif %}>
+      <span>{{ label }}</span>
+    </label>
+    {% endfor %}
+  </div>
+  <noscript><button type="submit">Apply</button></noscript>
+</form>
+
+<div class="split">
+  <section id="list-pane" hx-get="{% url 'complaints:list' %}" hx-trigger="complaintChanged from:body"
+           hx-include="#filters" hx-swap="innerHTML">
+    {% include "complaints/_list.html" %}
+  </section>
+  <aside id="detail-pane">
+    <p class="empty">Select a complaint to see its details.</p>
+  </aside>
+</div>
+{% endblock %}

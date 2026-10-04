@@ -1,0 +1,39 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SDM Complaint Tracker{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'vendor/pico.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <script src="{% static 'vendor/htmx.min.js' %}" defer></script>
+</head>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+  {% if user.is_authenticated %}
+  <header class="topbar">
+    <a class="brand" href="{% url 'complaints:list' %}">SDM Complaint Tracker</a>
+    <nav>
+      <a href="{% url 'complaints:list' %}">Complaints</a>
+      <a href="{% url 'complaints:overdue' %}">Overdue today</a>
+      {% if can_register %}<a href="{% url 'complaints:intake_upload' %}">+ New complaint</a>{% endif %}
+      {% if admin_index_url %}<a href="{{ admin_index_url }}">Admin</a>{% endif %}
+    </nav>
+    <form method="post" action="{% url 'logout' %}" class="logout">
+      {% csrf_token %}
+      <span>{{ user.get_full_name|default:user.username }}</span>
+      <button type="submit" class="outline secondary">Log out</button>
+    </form>
+  </header>
+  {% endif %}
+  <main class="{% block main_class %}page{% endblock %}">
+    {% block content %}{% endblock %}
+  </main>
+  <script>
+    document.body.addEventListener('htmx:afterSwap', function (e) {
+      if (e.detail.target && e.detail.target.id === 'detail-pane') {
+        document.body.classList.add('detail-open');
+      }
+    });
+  </script>
+</body>
+</html>

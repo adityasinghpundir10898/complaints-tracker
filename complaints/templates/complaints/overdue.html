@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Overdue today - SDM Complaint Tracker{% endblock %}
+{% block content %}
+<div class="overdue">
+  <div class="overdue-head">
+    <h2>Overdue today <small>{{ today|date:"j F Y" }}</small></h2>
+    <button type="button" class="outline secondary no-print" onclick="window.print()">Print</button>
+  </div>
+
+  <h3>Reports not received by the due date</h3>
+  {% for department, items in by_department.items %}
+  <h4>{{ department }} <small>({{ items|length }})</small></h4>
+  <table>
+    <thead><tr><th>Complaint</th><th>Subject</th><th>Village</th><th>Complainant</th><th>Due</th><th>Late by</th><th>With dept for</th></tr></thead>
+    <tbody>
+      {% for c in items %}
+      <tr class="bucket-{{ c.bucket }}">
+        <td><a href="{% url 'complaints:detail' c.pk %}">{{ c.ref_no }}</a></td>
+        <td>{{ c.subject }}</td>
+        <td>{{ c.village|default:"-" }}</td>
+        <td>{{ c.complainant.name }}</td>
+        <td>{{ c.due_on|date:"j M" }}</td>
+        <td>{{ c.days_overdue }} day{{ c.days_overdue|pluralize }}</td>
+        <td>{{ c.days_pending }} day{{ c.days_pending|pluralize }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% empty %}
+  <p class="empty">Nothing is overdue.</p>
+  {% endfor %}
+
+  <h3>Pending at the SDM office for {{ sdm_days }} days or more</h3>
+  {% if at_office %}
+  <table>
+    <thead><tr><th>Complaint</th><th>Subject</th><th>Village</th><th>Status</th><th>Waiting for</th></tr></thead>
+    <tbody>
+      {% for c in at_office %}
+      <tr class="bucket-{{ c.bucket }}">
+        <td><a href="{% url 'complaints:detail' c.pk %}">{{ c.ref_no }}</a></td>
+        <td>{{ c.subject }}</td>
+        <td>{{ c.village|default:"-" }}</td>
+        <td>{{ c.get_current_state_display }}</td>
+        <td>{{ c.days_pending }} day{{ c.days_pending|pluralize }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">Nothing has waited this long at the SDM office.</p>
+  {% endif %}
+
+  <h3>Portal rejections waiting for action</h3>
+  {% if rejected %}
+  <table>
+    <thead><tr><th>Complaint</th><th>Subject</th><th>Village</th><th>Status</th><th>Waiting since</th></tr></thead>
+    <tbody>
+      {% for c in rejected %}
+      <tr class="bucket-{{ c.bucket }}">
+        <td><a href="{% url 'complaints:detail' c.pk %}">{{ c.ref_no }}</a></td>
+        <td>{{ c.subject }}</td>
+        <td>{{ c.village|default:"-" }}</td>
+        <td>{{ c.get_current_state_display }}</td>
+        <td>{{ c.days_pending }} day{{ c.days_pending|pluralize }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">No rejections are waiting.</p>
+  {% endif %}
+</div>
+{% endblock %}
