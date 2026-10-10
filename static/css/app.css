@@ -38,11 +38,12 @@ h4 { font-size: 1.02rem; margin-bottom: .4rem; }
 a { text-underline-offset: 2px; }
 
 /* ---------- top bar ---------- */
-.topbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 1.5rem; padding: 0 1.25rem; height: 3.4rem; background: var(--navy); color: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, .25); }
+.topbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 1.5rem; padding: 0 1.25rem; height: 3.4rem; background: var(--navy); color: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, .25); overflow: hidden; }
 .topbar a { color: #dbe4f3; text-decoration: none; }
 .topbar .brand { display: flex; align-items: center; gap: .6rem; color: #fff; font-weight: 700; font-size: 1.05rem; letter-spacing: .01em; }
 .brand-mark { display: inline-grid; place-items: center; width: 1.8rem; height: 1.8rem; border-radius: .45rem; background: linear-gradient(135deg, #4f86e0, #2f5fb3); color: #fff; font-size: .95rem; font-weight: 700; }
-.topbar nav { display: flex; align-items: stretch; gap: .25rem; flex: 1; height: 100%; }
+.topbar nav { display: flex; align-items: stretch; gap: .25rem; flex: 1; min-width: 0; height: 100%; overflow-x: auto; scrollbar-width: none; }
+.topbar nav::-webkit-scrollbar { display: none; }
 .topbar nav a { display: flex; align-items: center; padding: 0 .85rem; font-size: .93rem; border-bottom: 3px solid transparent; }
 .topbar nav a:hover { color: #fff; background: rgba(255, 255, 255, .06); }
 .topbar nav a.active { color: #fff; border-bottom-color: #6ea0f0; background: rgba(255, 255, 255, .08); }
@@ -192,12 +193,17 @@ article form [role=button] { margin-left: .4rem; }
   .topbar { gap: .75rem; padding: 0 .75rem; }
   .topbar .user span:last-child { display: none; }
   .brand-text { display: none; }
+  .topbar nav a.cta { white-space: nowrap; }
   .filter-row #id_q { grid-column: auto; }
   .split { grid-template-columns: 1fr; }
   #detail-pane { display: none; }
   body.detail-open #detail-pane { display: block; position: fixed; inset: 0; z-index: 30; max-height: none; background: #fff; border-radius: 0; padding: .75rem; }
   body.detail-open .detail .back { display: inline-block; }
   #detail-pane.standalone { display: block; position: static; border: 1px solid var(--line); border-radius: var(--radius); padding: 0 1rem 1rem; }
+}
+
+@media (max-width: 480px) {
+  .kpi { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media print {
