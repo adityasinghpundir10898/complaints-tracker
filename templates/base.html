@@ -1,5 +1,5 @@
 {% load static %}<!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,20 +10,22 @@
 </head>
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
   {% if user.is_authenticated %}
+  {% with nav_page=request.resolver_match.url_name %}
   <header class="topbar">
-    <a class="brand" href="{% url 'complaints:list' %}">SDM Complaint Tracker</a>
+    <a class="brand" href="{% url 'complaints:list' %}"><span class="brand-mark">C</span><span class="brand-text">SDM Complaint Tracker</span></a>
     <nav>
-      <a href="{% url 'complaints:list' %}">Complaints</a>
-      <a href="{% url 'complaints:overdue' %}">Overdue today</a>
-      {% if can_register %}<a href="{% url 'complaints:intake_upload' %}">+ New complaint</a>{% endif %}
+      <a href="{% url 'complaints:list' %}" {% if nav_page == 'list' or nav_page == 'detail' %}class="active"{% endif %}>Complaints</a>
+      <a href="{% url 'complaints:overdue' %}" {% if nav_page == 'overdue' %}class="active"{% endif %}>Overdue today</a>
       {% if admin_index_url %}<a href="{{ admin_index_url }}">Admin</a>{% endif %}
+      {% if can_register %}<a class="cta" href="{% url 'complaints:intake_upload' %}">+ New complaint</a>{% endif %}
     </nav>
     <form method="post" action="{% url 'logout' %}" class="logout">
       {% csrf_token %}
-      <span>{{ user.get_full_name|default:user.username }}</span>
+      <span class="user"><span class="avatar">{{ user.get_full_name|default:user.username|slice:":1" }}</span><span>{{ user.get_full_name|default:user.username }}</span></span>
       <button type="submit" class="outline secondary">Log out</button>
     </form>
   </header>
+  {% endwith %}
   {% endif %}
   <main class="{% block main_class %}page{% endblock %}">
     {% block content %}{% endblock %}
@@ -32,6 +34,13 @@
     document.body.addEventListener('htmx:afterSwap', function (e) {
       if (e.detail.target && e.detail.target.id === 'detail-pane') {
         document.body.classList.add('detail-open');
+      }
+    });
+    document.body.addEventListener('htmx:beforeRequest', function (e) {
+      var el = e.detail.elt;
+      if (el && el.classList && el.classList.contains('card')) {
+        document.querySelectorAll('a.card.selected').forEach(function (c) { c.classList.remove('selected'); });
+        el.classList.add('selected');
       }
     });
   </script>

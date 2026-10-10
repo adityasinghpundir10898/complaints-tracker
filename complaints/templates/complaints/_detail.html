@@ -23,7 +23,7 @@
 
   <section class="status status-{{ complaint.bucket }}">
     <div class="status-head">
-      <strong>{{ complaint.get_current_state_display }}</strong>
+      <span class="badge state-{{ complaint.current_state }}">{{ complaint.get_current_state_display }}</span>
       {% if complaint.is_open %}
       <span>Pending at {{ complaint.location }} for {{ complaint.days_pending }} day{{ complaint.days_pending|pluralize }}</span>
       {% endif %}

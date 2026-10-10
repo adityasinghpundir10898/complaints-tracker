@@ -10,6 +10,7 @@
   <h3>Reports not received by the due date</h3>
   {% for department, items in by_department.items %}
   <h4>{{ department }} <small>({{ items|length }})</small></h4>
+  <div class="table-wrap">
   <table>
     <thead><tr><th>Complaint</th><th>Subject</th><th>Village</th><th>Complainant</th><th>Due</th><th>Late by</th><th>With dept for</th></tr></thead>
     <tbody>
@@ -20,18 +21,20 @@
         <td>{{ c.village|default:"-" }}</td>
         <td>{{ c.complainant.name }}</td>
         <td>{{ c.due_on|date:"j M" }}</td>
-        <td>{{ c.days_overdue }} day{{ c.days_overdue|pluralize }}</td>
+        <td class="error"><strong>{{ c.days_overdue }} day{{ c.days_overdue|pluralize }}</strong></td>
         <td>{{ c.days_pending }} day{{ c.days_pending|pluralize }}</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+  </div>
   {% empty %}
   <p class="empty">Nothing is overdue.</p>
   {% endfor %}
 
   <h3>Pending at the SDM office for {{ sdm_days }} days or more</h3>
   {% if at_office %}
+  <div class="table-wrap">
   <table>
     <thead><tr><th>Complaint</th><th>Subject</th><th>Village</th><th>Status</th><th>Waiting for</th></tr></thead>
     <tbody>
@@ -40,18 +43,20 @@
         <td><a href="{% url 'complaints:detail' c.pk %}">{{ c.ref_no }}</a></td>
         <td>{{ c.subject }}</td>
         <td>{{ c.village|default:"-" }}</td>
-        <td>{{ c.get_current_state_display }}</td>
+        <td><span class="badge state-{{ c.current_state }}">{{ c.get_current_state_display }}</span></td>
         <td>{{ c.days_pending }} day{{ c.days_pending|pluralize }}</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+  </div>
   {% else %}
   <p class="empty">Nothing has waited this long at the SDM office.</p>
   {% endif %}
 
   <h3>Portal rejections waiting for action</h3>
   {% if rejected %}
+  <div class="table-wrap">
   <table>
     <thead><tr><th>Complaint</th><th>Subject</th><th>Village</th><th>Status</th><th>Waiting since</th></tr></thead>
     <tbody>
@@ -60,12 +65,13 @@
         <td><a href="{% url 'complaints:detail' c.pk %}">{{ c.ref_no }}</a></td>
         <td>{{ c.subject }}</td>
         <td>{{ c.village|default:"-" }}</td>
-        <td>{{ c.get_current_state_display }}</td>
+        <td><span class="badge state-{{ c.current_state }}">{{ c.get_current_state_display }}</span></td>
         <td>{{ c.days_pending }} day{{ c.days_pending|pluralize }}</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+  </div>
   {% else %}
   <p class="empty">No rejections are waiting.</p>
   {% endif %}

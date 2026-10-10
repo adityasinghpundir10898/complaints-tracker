@@ -13,7 +13,7 @@
    hx-get="{% url 'complaints:detail' c.pk %}" hx-target="#detail-pane" hx-push-url="false">
   <div class="card-head">
     <strong>{{ c.ref_no }}</strong>
-    <span class="badge">{{ c.get_current_state_display }}</span>
+    <span class="badge state-{{ c.current_state }}">{{ c.get_current_state_display }}</span>
   </div>
   <div class="card-subject">{{ c.subject }}</div>
   <div class="card-meta">

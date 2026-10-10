@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Log in - SDM Complaint Tracker{% endblock %}
 {% block content %}
+<div class="login-wrap">
 <article class="login">
-  <h2>Log in</h2>
+  <div class="login-brand">
+    <span class="brand-mark">C</span>
+    <div><strong>SDM Complaint Tracker</strong><span>Sign in to continue</span></div>
+  </div>
   <form method="post">
     {% csrf_token %}
     {% if form.errors %}<p class="error" role="alert">Wrong username or password.</p>{% endif %}
@@ -12,4 +16,5 @@
     <button type="submit">Log in</button>
   </form>
 </article>
+</div>
 {% endblock %}
